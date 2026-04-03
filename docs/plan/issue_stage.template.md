@@ -1,161 +1,91 @@
-﻿# issue_stageX
+﻿# Issue Plan and Issue Body Template
 
-This file lists the issues for a single stage.
-Each issue should be independently executable, reviewable, and closable.
+This file is a two-step template.
+First produce an issue plan draft.
+Then expand the approved plan into an issue body.
+Do not skip the issue plan step.
 
----
+## 1. Issue Plan Draft
 
-# Issue X.1 — <title>
+Use this lightweight draft for human review of structure and dependencies.
 
-## Background
+- derived_from:
+- issue_id:
+- title:
+- issue_type:
+- module:
+- goal:
+- depends_on:
+- priority: P0 | P1 | P2
 
-Briefly explain:
-- what upstream context this issue depends on
-- why this issue exists in the stage
-- what gap it closes
+Optional planning fields:
 
-## Suggested Branch
+- reason_for_split:
+- risk:
+- expected_output:
 
-- `feat/...` or `docs/...` or `fix/...`
+Rules:
 
-## Goal
+- Keep the draft short.
+- Keep the draft aligned with the milestone spec.
+- The draft is not the final issue body.
+- The draft must be reviewed before expansion.
 
-State the concrete goal in one paragraph.
+## 2. Issue Expansion Rules
 
-Good examples:
-- add the minimum runnable training entry point
-- implement the dataset scanning layer
-- freeze config loading behavior for the baseline
-- update closeout docs for milestone transition
+Use the approved issue plan draft to generate the issue body below.
+Keep the same canonical terms across milestone spec, issue plan, issue body, PR body, and review report.
 
-## In Scope
+### derived_from
+- derived_from:
 
-- [ ] item 1
-- [ ] item 2
-- [ ] item 3
+### issue_type
+- issue_type:
 
-## Out of Scope
+### module
+- module:
 
-- [ ] item 1
-- [ ] item 2
+### depends_on
+- depends_on:
 
-## Relevant Files / Paths
+### Background
+- background:
 
-- `...`
-- `...`
-- `...`
+### Goal
+- goal:
 
-## Constraints
+### In Scope
+- in_scope:
 
-List hard constraints for this issue.
+### Out of Scope
+- out_of_scope:
 
-Examples:
-- do not redesign architecture
-- do not rename public entrypoints
-- preserve config compatibility
-- no new dependency without approval
-- keep docs in sync if behavior changes
+### Inputs
+- inputs:
 
-Project-specific constraints:
-- Constraint 1:
-- Constraint 2:
+### Deliverables
+- deliverables:
 
-## Suggested Workflow
+### Constraints
+- constraints:
 
-Recommended execution order:
+### Acceptance
+- acceptance:
 
-1. read the relevant docs and entry files
-2. inspect affected modules
-3. make the smallest viable change
-4. run narrow validation
-5. update docs/tests if needed
-6. summarize changes and risks
+### Suggested Branch
+- suggested_branch:
 
-## Done When
+### Validation
+- validation:
 
-This issue is done when all are true:
+### Report Format
+- report_format:
 
-- [ ] result 1
-- [ ] result 2
-- [ ] result 3
+## 3. Expansion Rules
 
-## Required Validation
-
-Minimum evidence required:
-
-- command / check 1:
-- command / check 2:
-- manual sanity check:
-- optional broader check:
-
-## Report Format
-
-Final report should include:
-
-1. changed files
-2. what changed in each file
-3. validation run
-4. known risks / limitations
-5. suggested next issue
-
-## Stop and Report If
-
-- stop condition 1
-- stop condition 2
-- stop condition 3
-
----
-
-# Issue X.2 — <title>
-
-## Background
-
-...
-
-## Suggested Branch
-
-- `feat/...`
-
-## Goal
-
-...
-
-## In Scope
-
-- [ ] ...
-- [ ] ...
-
-## Out of Scope
-
-- [ ] ...
-- [ ] ...
-
-## Relevant Files / Paths
-
-- `...`
-
-## Constraints
-
-- ...
-
-## Suggested Workflow
-
-1. ...
-2. ...
-
-## Done When
-
-- [ ] ...
-
-## Required Validation
-
-- ...
-
-## Report Format
-
-1. ...
-2. ...
-
-## Stop and Report If
-
-- ...
+- Use the milestone spec as the source of truth.
+- Expand only after the issue plan draft is approved.
+- Preserve issue_type, module, depends_on, and priority exactly.
+- Keep one primary module per issue unless the milestone spec explicitly allows cross-module work.
+- Put design / freeze issues before implementation issues.
+- Put validation / docs / closeout issues after implementation issues.

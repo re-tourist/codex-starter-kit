@@ -1,125 +1,145 @@
-﻿# PROJECT_CONTEXT
+﻿# PROJECT_CONTEXT Template
+
+Use this file as the starting scaffold for `docs/ai/PROJECT_CONTEXT.md`.
+Do not treat it as a free-form notes file.
+The same section names should be preserved so the rule layer stays stable.
 
 ## 1. Project Summary
 
-- Project name:
-- Project type:
-  - [ ] research
-  - [ ] product
-  - [ ] coursework
-  - [ ] prototype
-  - [ ] infrastructure
-- One-sentence description:
-- Primary language / stack:
+- project_name:
+- project_type: tooling / infra | application | library | research | coursework
+- description:
+- primary_stack:
 
 ## 2. Current Phase
 
-- Current milestone / stage:
-- Why this stage exists:
-- What this stage should prove or deliver:
-- What is explicitly out of scope in this stage:
+- current_milestone:
+- why_this_phase_exists:
+- what_this_phase_should_prove:
+- out_of_scope:
 
-## 3. High-Level Goal
+## 3. Supported Milestone Types
 
-Describe the high-level goal in 3–8 lines.
+- freeze
+- feature
+- research
+- refactor
+- infra
+- evaluation
+- docs
 
-Focus on:
-- what success looks like
-- what the system is supposed to achieve
-- what matters more: correctness / speed / reproducibility / demoability / extensibility / research validity
+Rules:
 
-## 4. Human-Owned Decisions
+- type must be one of the supported values above.
+- type selects the default issue skeleton used for decomposition.
+- type is a policy signal, not a free-text label.
 
-These areas are owned by the human and should not be changed by agents without approval:
+## 4. Default Skeletons by Milestone Type
 
-- research / product direction:
-- milestone boundaries:
-- contract freeze:
-- evaluation criteria:
-- release / submission decisions:
-- public API / external commitments:
+### feature
+- design / contract
+- dataset / input
+- model / core logic
+- train / integration
+- eval / output contract
+- docs / validation / closeout
 
-## 5. Agent-Owned Execution Scope
+### research
+- protocol freeze
+- baseline reproduction
+- method insertion
+- experiment execution
+- result analysis
+- docs / closeout
 
-Agents are expected to help with:
+### refactor
+- boundary freeze
+- interface migration
+- internal refactor
+- regression validation
+- docs / closeout
 
-- code implementation
-- refactor within approved scope
-- tests / validation
-- local documentation sync
-- issue-level execution
-- milestone-level closeout drafting
+### freeze
+- contract freeze
+- allowed-change definition
+- validation gate
+- closeout / handoff
 
-Agents are not expected to decide:
+### infra
+- environment setup
+- tooling update
+- integration validation
+- docs / closeout
 
-- whether the overall direction is correct
-- whether a failed result invalidates the project hypothesis
-- whether to expand scope
-- whether to change the meaning of success
+### evaluation
+- metric contract
+- baseline comparison
+- run execution
+- analysis / report
+- docs / closeout
 
-## 6. Project Constraints
+### docs
+- source review
+- structure / template update
+- example / guidance
+- validation / consistency check
+- closeout
 
-List durable constraints here.
+## 5. Module Map
 
-Examples:
-- do not change stable file layout without approval
-- prefer minimal viable implementation before optimization
-- keep configs explicit and reproducible
-- avoid adding dependencies unless justified
-- prioritize readable diffs over clever rewrites
+- data
+- dataset
+- model
+- train
+- eval
+- infra
+- docs
+- experiment
 
-Project-specific constraints:
-- Constraint 1:
-- Constraint 2:
-- Constraint 3:
+## 6. Task Decomposition Policy
 
-## 7. Success Criteria for This Phase
+- milestone spec is the only upstream source for issue derivation.
+- the first generated artifact must be an issue plan draft.
+- issue plan drafts are for human review of structure, dependency, and coverage.
+- each issue must have a single primary responsibility.
+- design / freeze issues must come before implementation issues.
+- validation / docs / closeout issues must come after implementation issues.
 
-A phase is considered successful when:
+## 7. Priority Policy
 
-- [ ] Deliverable 1:
-- [ ] Deliverable 2:
-- [ ] Deliverable 3:
+- P0: blocking, correctness or contract failure, stop and escalate.
+- P1: serious, must fix before milestone close.
+- P2: non-blocking follow-up, can be scheduled later.
 
-Optional quantitative gates:
-- metric / threshold:
-- runtime / cost budget:
-- reproducibility requirement:
+## 8. Issue Derivation Policy
 
-## 8. Stop Conditions
+- choose the default skeleton from milestone type.
+- prune the skeleton by `in_scope` and `out_of_scope`.
+- apply `must_keep`, `must_change`, and `must_not_change` as compatibility constraints.
+- map `required_outputs` into output-oriented issues.
+- split by module with one primary module per issue.
+- assign dependency edges so design / freeze issues appear before implementation issues.
+- emit a reviewable issue plan draft before any issue body is written.
 
-If any of these happen, the agent should stop and report instead of pushing forward:
+## 9. Canonical Docs Map
 
-- Stop condition 1:
-- Stop condition 2:
-- Stop condition 3:
+- `docs/ai/PROJECT_CONTEXT.md`
+- `docs/ai/WORKFLOW_GUIDE.md`
+- `docs/plan/plan_stage.template.md`
+- `docs/plan/issue_stage.template.md`
+- `docs/contracts/commit_message_format.md`
+- `.github/ISSUE_TEMPLATE.md`
+- `.github/pull_request_template.md`
+- `templates/PR_TEMPLATE.md`
+- `templates/issue_report_template.md`
+- `templates/milestone_review_report.template.md`
+- `docs/review/code_review.template.md`
+- `docs/handoff/milestone_closeout.template.md`
 
-Examples:
-- validation results contradict task assumptions
-- required files or configs are missing
-- proposed change would violate contract freeze
-- implementation requires unapproved dependency or architecture change
+## 10. Stop Conditions
 
-## 9. Important Files and Docs
-
-Core files:
-- `...`
-- `...`
-
-Planning docs:
-- `...`
-- `...`
-
-Contracts / review docs:
-- `...`
-- `...`
-
-## 10. Reporting Preference
-
-When reporting progress, prefer this style:
-
-- concise factual summary
-- changed files first
-- validation second
-- open risks last
-- do not overclaim certainty
+- dependency or API automation would be required
+- the directory structure would need to change
+- the milestone spec is missing and cannot be inferred safely
+- the issue plan would exceed the allowed max issue count
+- a validation step is missing for a P0 or P1 change

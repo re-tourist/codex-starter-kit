@@ -1,36 +1,75 @@
-# WORKFLOW_GUIDE
+﻿# WORKFLOW_GUIDE
 
 ## Purpose
 
 This document explains how to use the starter kit as a real workflow.
-
 It is not a design document.
 It is an operational guide for humans and agents.
 
-The workflow goal is:
+The goal is to turn a single milestone spec into a stable chain:
 
-- keep project rules inside the repository
-- let Codex execute within documented boundaries
-- let reviewer do first-pass checks
-- keep humans focused on high-level decisions
+Milestone Spec -> Issue Plan Draft -> Issue Document -> Implementation -> PR -> Review -> Closeout
 
 ---
 
-## Core Principle
+## Source of Truth
 
 Use the repository as the source of truth.
-
 Do not rely on:
+
 - long chat history
 - repeated manual prompt rewriting
 - human copy-paste of project context
 
 Instead, keep durable context in:
+
 - `AGENTS.md`
 - `docs/ai/PROJECT_CONTEXT.md`
-- `docs/plan/*`
-- `docs/contracts/*`
-- `docs/review/*`
+- `docs/plan/plan_stage.template.md`
+- `docs/plan/issue_stage.template.md`
+- `docs/contracts/commit_message_format.md`
+- `docs/review/code_review.template.md`
+- `docs/handoff/milestone_closeout.template.md`
+- `templates/PR_TEMPLATE.md`
+- `templates/issue_report_template.md`
+- `templates/milestone_review_report.template.md`
+- `.github/ISSUE_TEMPLATE.md`
+- `.github/pull_request_template.md`
+
+## Command Run Log
+
+Before running command groups that materially advance the task, append them to `docs/run_order.md`.
+
+Logging format:
+
+- write one comment line for the command group
+- include an ISO 8601 timestamp for the group
+- put one command per line underneath the comment
+- start a new group whenever the intent changes
+
+This log is a lightweight execution ledger, not a substitute for validation notes.
+
+---
+
+## Milestone Compilation Workflow
+
+This is the required flow.
+
+1. The author fills out a milestone spec in `docs/plan/plan_stage.template.md`.
+2. Codex reads `docs/ai/PROJECT_CONTEXT.md` before doing any decomposition.
+3. Codex generates an issue plan draft from the milestone spec.
+4. A human reviews the issue plan draft for structure, dependency order, and coverage.
+5. Only after approval does Codex expand the approved plan into issue bodies.
+6. Implementation starts only after the issue body exists and the relevant contract is clear.
+7. PRs, reviews, and closeout notes are produced after implementation.
+
+Hard gates:
+
+- milestone specs must not jump directly to code.
+- issue plan draft is a required intermediate artifact.
+- design / freeze work must appear before implementation work.
+- validation / docs / closeout work must appear after implementation work.
+- issue bodies must inherit the milestone spec terms rather than inventing new labels.
 
 ---
 
@@ -47,6 +86,8 @@ Instead, keep durable context in:
 
 ### Implementer owns
 - scoped implementation
+- issue plan draft generation
+- issue body expansion after approval
 - narrow validation
 - docs / config / test sync
 - structured execution report
@@ -56,13 +97,125 @@ Instead, keep durable context in:
 - contract review
 - validation review
 - semantic risk review
-- structured accept / revise / stop recommendation
+- structured approve / revise / stop recommendation
+
+---
+
+## GitHub Workflow
+
+Use the docs in this repository as the canonical source for GitHub objects.
+
+Recommended mapping:
+
+- milestone spec -> GitHub milestone title and description
+- issue plan draft -> review-only intermediate artifact
+- issue body template -> GitHub issue body
+- PR template -> GitHub pull request body
+- closeout template -> milestone handoff / closeout note
+- commit contract -> local commit message format
+
+If GitHub credentials are available:
+
+- create or update the GitHub milestone from the milestone spec.
+- create issues from the approved issue body template.
+- open PRs using the PR template.
+- keep branch names and titles aligned with the stage / issue identifiers.
+
+If GitHub credentials are not available:
+
+- still draft the milestone, issue, and PR bodies locally.
+- stop and report that remote creation could not be completed.
+
+Milestones are not a substitute for planning docs.
+They are the remote tracking mirror of the plan.
+
+---
+
+## Worked Example
+
+### Example milestone spec
+
+```text
+Meta:
+  milestone_id: M0
+  title: First usable rule layer
+  type: docs
+  status: draft
+  priority: P1
+
+Objective:
+  turn the starter kit into a milestone-driven planning system.
+
+Scope:
+  in_scope:
+    - project context rule layer
+    - milestone spec template
+    - issue plan draft flow
+  out_of_scope:
+    - scripts
+    - parsers
+    - GitHub API automation
+
+Constraints:
+  must_keep:
+    - existing directory structure
+  must_change:
+    - template text and workflow rules
+  must_not_change:
+    - no new external dependencies
+
+Resources:
+  available_inputs:
+    - starter kit docs
+  required_outputs:
+    - milestone spec template
+    - issue plan draft template
+    - issue body template
+  non_goals:
+    - remote automation
+
+Acceptance:
+  functional:
+    - a single milestone spec can produce an issue plan draft
+  artifact:
+    - the issue plan draft uses issue_id, title, issue_type, module, goal, depends_on, priority
+  validation:
+    - a sample feature milestone can be expanded into issue docs without extra issue prompts
+
+Risk:
+  - terminology drift
+  - template mismatch
+
+Decomposition Policy:
+  preferred_split: by module and by policy layer
+  max_issue_count: 4
+  required_issue_types:
+    - design
+    - validation
+    - docs
+  optional_issue_types:
+    - closeout
+  dependency_rules:
+    - design before implementation
+    - implementation before validation and docs
+```
+
+### Example issue plan draft
+
+| issue_id | title | issue_type | module | goal | depends_on | priority |
+| --- | --- | --- | --- | --- | --- | --- |
+| M0.1 | Define project context rule layer | docs | docs | Add the project-level policy layer and canonical terms | - | P1 |
+| M0.2 | Rebuild milestone and issue templates | design | docs | Make milestone specs and issue bodies machine-derivable | M0.1 | P1 |
+| M0.3 | Align PR, review, and closeout templates | docs | docs | Keep downstream artifacts consistent with the new rules | M0.2 | P2 |
+| M0.4 | Validate milestone-to-issue derivation | validation | experiment | Dry-run the rule layer with one sample milestone | M0.2 | P1 |
+
+The point of the example is to show the intermediate issue plan draft first, then the issue body expansion second.
 
 ---
 
 ## Standard Lifecycle
 
-### Phase 0 — Bootstrap
+### Phase 0 - Bootstrap
 
 Use this when entering a new repository.
 
@@ -76,26 +229,27 @@ At the end of Phase 0, the repo should be understandable enough for scoped execu
 
 ---
 
-### Phase 1 — Planning
+### Phase 1 - Planning
 
-Use this before coding a new stage.
+Use this before coding a new milestone.
 
-1. generate or write `docs/plan/plan_stageX.md`
-2. split into `docs/plan/issue_stageX.md`
+1. write or update the milestone spec
+2. derive the issue plan draft
 3. human reviews scope and ordering
-4. create or update relevant contract docs if execution is about to begin
+4. expand approved issue plan items into issue bodies
+5. create or update relevant contract docs if execution is about to begin
 
-At the end of Phase 1, the stage should be executable in issue-sized chunks.
+At the end of Phase 1, the milestone should be executable in issue-sized chunks.
 
 ---
 
-### Phase 2 — Freeze
+### Phase 2 - Freeze
 
-Use this before a stage enters active execution.
+Use this before a milestone enters active execution.
 
 1. create `docs/contracts/contract_freeze_*.md`
 2. lock:
-   - stage objective
+   - milestone objective
    - stable interfaces
    - allowed change window
    - forbidden changes
@@ -106,7 +260,7 @@ At the end of Phase 2, agents should know where execution freedom stops.
 
 ---
 
-### Phase 3 — Execute
+### Phase 3 - Execute
 
 Use implementer for a single issue or a tightly scoped milestone task.
 
@@ -114,18 +268,18 @@ Recommended order:
 
 1. read `AGENTS.md`
 2. read `PROJECT_CONTEXT.md`
-3. read relevant stage / issue / contract docs
+3. read the milestone spec and approved issue body
 4. plan briefly
 5. implement minimally
 6. run narrow validation
 7. sync docs/tests/config if needed
-8. write structured issue report or PR description
+8. write a structured issue report or PR description
 
 At the end of Phase 3, the task should be reviewable.
 
 ---
 
-### Phase 4 — Review
+### Phase 4 - Review
 
 Use reviewer after implementation, before merge or milestone close.
 
@@ -147,7 +301,7 @@ At the end of Phase 4, a human should be able to decide quickly.
 
 ---
 
-### Phase 5 — Closeout
+### Phase 5 - Closeout
 
 Use this when a milestone is done or paused.
 
@@ -163,39 +317,16 @@ At the end of Phase 5, the next stage should have a clear handoff entry.
 
 ---
 
-## Minimal First Real Run
+## Success Criteria
 
-For the first real test of this starter kit, do not choose the most complex project.
+This workflow is working if:
 
-Choose a project that is:
-- moderately structured
-- has a readable README
-- has a small but real issue to implement
-- has limited architectural ambiguity
-
-Recommended first run:
-
-1. run `repo-snapshot`
-2. draft `AGENTS.md`
-3. fill `PROJECT_CONTEXT.md`
-4. write one `plan_stage1.md`
-5. write one `issue_stage1.md`
-6. freeze one small contract
-7. run implementer on one issue
-8. run reviewer
-9. human checks whether manual coordination effort went down
-
----
-
-## Success Criteria for the Workflow
-
-This starter workflow is working if:
-
-- agents read repo docs instead of asking for repeated context
-- implementation reports become structured and predictable
-- reviewer catches meaningful issues, not just style trivia
-- humans spend less time doing copy-paste orchestration
-- milestone transitions become easier to reason about
+- agents read repo docs instead of asking for repeated context.
+- the first generated artifact after a milestone spec is an issue plan draft.
+- implementation reports become structured and predictable.
+- reviewer catches meaningful issues, not just style trivia.
+- humans spend less time doing copy-paste orchestration.
+- milestone transitions become easier to reason about.
 
 ---
 
@@ -203,12 +334,12 @@ This starter workflow is working if:
 
 The workflow is not yet working well if:
 
-- humans still rewrite long prompts every time
-- agents ignore `AGENTS.md`
-- reviewer only repeats the implementer summary
-- scope drift happens frequently
-- contract docs exist but do not affect behavior
-- docs are present but never referenced during execution
+- humans still rewrite long prompts every time.
+- agents ignore `AGENTS.md` or `PROJECT_CONTEXT.md`.
+- reviewer only repeats the implementer summary.
+- scope drift happens frequently.
+- contract docs exist but do not affect behavior.
+- docs are present but never referenced during execution.
 
 ---
 
@@ -217,6 +348,7 @@ The workflow is not yet working well if:
 Only upgrade after repeated real use.
 
 Good candidates for V1+:
+
 - more reusable Skills
 - nested `AGENTS.md`
 - CI-triggered reviews

@@ -1,45 +1,49 @@
-﻿﻿## What This PR Does
+﻿# Pull Request Template
 
-- Related stage / milestone:
-- Related issue:
-- Core purpose of this PR:
+## 1. Summary
 
-用 2–4 句话说明：
-- 这次 PR 直接解决什么
-- 它在当前阶段里的作用是什么
-- 它明确不解决什么
-
----
-
-## Changed Files
-
-请按“文件/目录 + 改动目的”列出主要改动：
-
-- `path/to/file_or_dir`
-  - why changed:
-- `path/to/file_or_dir`
-  - why changed:
-
-不要只列文件名。
+- related_milestone:
+- related_issue_plan:
+- related_issue(s):
+- branch:
+- core_change:
 
 ---
 
-## Scope Status
+## 2. Why This Change Exists
+
+- what problem does it solve?
+- why now?
+- why this scope and not a broader redesign?
+- which milestone spec fields drove this PR?
+
+---
+
+## 3. What Changed
+
+- `path/to/file_a`
+  - what changed
+  - why it changed
+- `path/to/file_b`
+  - what changed
+  - why it changed
+
+---
+
+## 4. Scope Check
 
 - [ ] fully in scope
-- [ ] slightly beyond scope, but justified below
-- [ ] likely out of scope and needs human review
+- [ ] slightly beyond scope but justified
+- [ ] clearly out of scope
 
-如果不是完全 in scope，请说明：
-- 超出了什么
-- 为什么发生
-- 是否建议拆到后续 issue
+If any change is outside scope, explain the risk.
 
 ---
 
-## Validation
+## 5. Validation
 
-### Commands actually run
+### Commands run
+
 ```bash
 # command 1
 # command 2
@@ -49,71 +53,51 @@
 
 - check 1:
 - check 2:
+- manual sanity check:
 
-### Still unverified
+If something was not run, say why.
 
-- item 1:
-- item 2:
+---
 
-这里只写“实际运行过”的验证，不要写理论上可以运行的。
+## 6. Documentation and Config Sync
 
-------
+- docs updated:
+- config updated:
+- tests updated:
+- no doc/config sync needed:
 
-## Contract / Interface Impact
+---
 
-请勾选本次改动是否触及以下边界：
-
--  public API
--  config semantics
--  stable file layout
--  data flow / output meaning
--  evaluation logic
--  frozen contract
--  none of the above
-
-若勾选了任意项，请说明：
-
-- 改了什么
-- 是否在允许范围内
-- 是否需要人工确认
-
-------
-
-## Docs / Config Sync
-
--  README updated
--  docs updated
--  config comments / examples updated
--  no sync needed
-
-补充说明：
-
-- 更新了哪些：
-- 如果没更新，为什么可以不更新：
-
-------
-
-## Risks / Limits
-
-请写当前最重要的风险，而不是泛泛写“无”：
+## 7. Risks and Limitations
 
 - risk 1:
 - risk 2:
-- unresolved uncertainty 1:
+- unverified path 1:
 
-------
+---
 
-## Reviewer Focus
+## 8. Contract and Interface Check
 
-请 reviewer 优先看：
+- public API:
+- config semantics:
+- stable file layout:
+- data flow / output meaning:
+- evaluation logic:
+- frozen contract:
+- none of the above:
 
-1. 
-2. 
-3. 
+If any boundary was touched, explain whether it was approved.
 
-优先写最可能出错的高价值位置，例如：
+---
 
-- scope drift
-- contract conflict
-- validation insufficiency
-- semantic mismatch risk
+## 9. Reviewer Focus
+
+1.
+2.
+3.
+
+---
+
+## 10. Suggested Next Step
+
+- next step:

@@ -1,129 +1,99 @@
-# Milestone Review Report
+﻿# Milestone Review Report
 
 ## 1. Metadata
 
-- Project:
-- Milestone:
-- Review Date:
-- Reviewer:
-- Related Plan:
-- Related Issues:
-- Related Contract Freeze:
-- Related Snapshot / Closeout:
+- milestone_id:
+- milestone_title:
+- milestone_type:
+- priority:
+- review_date:
+- reviewer:
+- related_plan:
+- related_issue_plan:
+- related_issues:
+- related_prs:
+- related_contract_freeze:
 
 ---
 
-## 2. Review Purpose
+## 2. Milestone Spec Summary
 
-> State why this milestone review is being conducted.
+Summarize the milestone spec that was used for this milestone.
 
-Suggested points:
-- confirm whether the milestone goals were actually met
-- assess delivery quality, risk, and readiness for the next milestone
-- identify scope drift, unresolved blockers, and follow-up actions
-- provide a human decision basis rather than only a progress summary
-
----
-
-## 3. Original Milestone Target
-
-### 3.1 Intended Goal
-> Summarize the original milestone objective in 3–6 lines.
-
-### 3.2 Planned Scope
-> List the work that was explicitly in scope.
-
-- In scope item 1
-- In scope item 2
-- In scope item 3
-
-### 3.3 Explicit Non-Goals
-> List what was intentionally excluded from this milestone.
-
-- Non-goal 1
-- Non-goal 2
-- Non-goal 3
+- objective:
+- in_scope:
+- out_of_scope:
+- must_keep:
+- must_change:
+- must_not_change:
+- available_inputs:
+- required_outputs:
+- acceptance:
+- risk:
 
 ---
 
-## 4. Delivery Summary
+## 3. Delivery Summary
 
-### 4.1 Completed Work
-> Summarize the main completed outputs.
+### Completed Work
+- item 1
+- item 2
+- item 3
 
-- Output / module / document 1
-- Output / module / document 2
-- Output / module / document 3
+### Partially Completed Work
+- item 1
+- item 2
 
-### 4.2 Partially Completed Work
-> Record work that was started but not fully completed.
+### Not Completed
+- item 1
+- item 2
 
-- Partial item 1
-- Partial item 2
-
-### 4.3 Not Completed
-> Record planned work that remains unfinished.
-
-- Unfinished item 1
-- Unfinished item 2
-
-### 4.4 Major Files / Components Affected
-> List the main files, directories, modules, or documents involved.
-
+### Major Files / Components Affected
 - `path/to/file_or_dir_1`
 - `path/to/file_or_dir_2`
 - `path/to/file_or_dir_3`
 
 ---
 
-## 5. Goal-by-Goal Assessment
+## 4. Issue Plan / Decomposition Review
 
-> Evaluate milestone completion against the original intended goals.
+- Did the issue plan draft stay within the milestone spec?
+- Did the split respect module boundaries?
+- Did the dependency order keep design / freeze work before implementation work?
+- Did the plan avoid exceeding `max_issue_count` without approval?
 
-| Goal   | Expected Result | Actual Result | Status                    | Notes |
-| ------ | --------------- | ------------- | ------------------------- | ----- |
-| Goal 1 |                 |               | Done / Partial / Not Done |       |
-| Goal 2 |                 |               | Done / Partial / Not Done |       |
-| Goal 3 |                 |               | Done / Partial / Not Done |       |
+### Issue-by-Issue Status
+
+| Issue ID | Title | Type | Module | Depends On | Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
 
 ---
 
-## 6. Validation and Evidence
+## 5. Validation and Evidence
 
-### 6.1 What Was Verified
-> Summarize the checks or evidence used to support the milestone outcome.
-
+### What Was Verified
 - test / script / manual verification 1
 - test / script / manual verification 2
 - doc / screenshot / artifact 3
 
-### 6.2 What Was Not Verified
-> Explicitly state what is still unverified.
-
+### What Was Not Verified
 - unverified assumption 1
 - unverified behavior 2
 
-### 6.3 Confidence Level
-> Give a cautious assessment of current confidence.
-
-- Overall confidence: High / Medium / Low
-- Reason:
-- Main uncertainty sources:
+### Confidence Level
+- overall confidence:
+- reason:
+- main uncertainty sources:
 
 ---
 
-## 7. Scope Control Review
+## 6. Scope Control Review
 
-### 7.1 Did Scope Drift Occur?
-- Yes / No
-
-### 7.2 If Yes, What Drifted?
-> Describe where implementation expanded or deviated from the planned scope.
-
-### 7.3 Contract Freeze Compliance
-> Assess whether the milestone stayed within the frozen constraints.
-
-- Fully compliant / Mostly compliant / Partially compliant / Non-compliant
+- scope drift: yes / no
+- contract freeze compliance: fully compliant / mostly compliant / partially compliant / non-compliant
 
 Notes:
 - constraint respected:
@@ -132,87 +102,46 @@ Notes:
 
 ---
 
-## 8. Quality Review
+## 7. Risk Review
 
-### 8.1 Strengths
-> What was done well in this milestone?
+### Current Risks
+| Risk | Impact | Likelihood | Suggested Handling |
+| --- | --- | --- | --- |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
 
-- strength 1
-- strength 2
-- strength 3
-
-### 8.2 Weaknesses
-> What quality concerns remain?
-
-- weakness 1
-- weakness 2
-- weakness 3
-
-### 8.3 Technical Debt Introduced
-> Record shortcuts, deferred cleanup, or fragile design decisions.
-
-- debt item 1
-- debt item 2
-
----
-
-## 9. Risk Review
-
-### 9.1 Current Risks
-> List the main remaining risks after milestone completion.
-
-| Risk   | Impact              | Likelihood          | Suggested Handling |
-| ------ | ------------------- | ------------------- | ------------------ |
-| Risk 1 | High / Medium / Low | High / Medium / Low |                    |
-| Risk 2 | High / Medium / Low | High / Medium / Low |                    |
-| Risk 3 | High / Medium / Low | High / Medium / Low |                    |
-
-### 9.2 Blockers for Next Milestone
-> Record blockers that could prevent safe transition to the next stage.
-
+### Blockers for Next Milestone
 - blocker 1
 - blocker 2
 
 ---
 
-## 10. Decision Readiness
+## 8. Decision Readiness
 
-### 10.1 Is This Milestone Ready to Close?
-- Yes
-- Yes, with follow-up items
-- No
+- milestone ready to close: yes / yes with follow-up items / no
+- project ready for next milestone: yes / conditionally yes / no
 
-### 10.2 Is the Project Ready for the Next Milestone?
-- Yes
-- Conditionally yes
-- No
-
-### 10.3 Required Follow-Up Before Transition
-> List required follow-up tasks before formally moving on.
-
+### Required Follow-Up Before Transition
 - follow-up 1
 - follow-up 2
 - follow-up 3
 
 ---
 
-## 11. Human Decision
+## 9. Human Decision
 
-> This section should be completed or confirmed by the human project owner.
+### Final Decision
+- accept and close milestone
+- accept with debt / known gaps
+- extend current milestone
+- re-plan before continuing
+- roll back / redesign selected parts
 
-### 11.1 Final Decision
-- Accept and close milestone
-- Accept with debt / known gaps
-- Extend current milestone
-- Re-plan before continuing
-- Roll back / redesign selected parts
+### Reason for Decision
+- reason:
 
-### 11.2 Reason for Decision
-> Explain the real reason behind the decision.
-
-### 11.3 Next Action
-> State the immediate next management action.
-
+### Next Action
 - open next milestone
 - create follow-up issues
 - update contract freeze
@@ -222,29 +151,26 @@ Notes:
 
 ---
 
-## 12. Follow-Up Issue Suggestions
+## 10. Follow-Up Issue Suggestions
 
-> Optional: convert review findings into concrete issue candidates.
-
-| Suggested Issue | Why Needed | Priority     | Suggested Branch |
-| --------------- | ---------- | ------------ | ---------------- |
-| Issue 1         |            | P0 / P1 / P2 |                  |
-| Issue 2         |            | P0 / P1 / P2 |                  |
-| Issue 3         |            | P0 / P1 / P2 |                  |
+| Suggested Issue | Why Needed | Priority | Suggested Branch |
+| --- | --- | --- | --- |
+|  |  | P0 / P1 / P2 |  |
+|  |  | P0 / P1 / P2 |  |
+|  |  | P0 / P1 / P2 |  |
 
 ---
 
-## 13. Appendix
+## 11. Appendix
 
-### 13.1 Related Evidence
+### Related Evidence
 - link / doc / commit / PR / screenshot / experiment result
 
-### 13.2 Reviewer Notes
-> Any additional notes that should not be lost.
+### Reviewer Notes
+- note 1
+- note 2
 
-### 13.3 Open Questions
-> Questions that remain unresolved and should be tracked explicitly.
-
+### Open Questions
 - question 1
 - question 2
 - question 3

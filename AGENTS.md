@@ -1,40 +1,57 @@
-# AGENTS.md
+﻿# AGENTS.md
 
 ## Purpose
 
 This file is the repository-level operating manual for AI coding agents.
 
 It is not a product README and not a task-specific prompt.
-It defines the durable working rules that should apply across normal development work in this repository.
+It defines durable working rules that should apply across normal development work in this repository.
 
 Agents should use this file together with:
-- project docs under `docs/`
-- project configuration under `.codex/`
-- any nested `AGENTS.md` / override docs closer to the working directory
+
+- `docs/ai/PROJECT_CONTEXT.md`
+- `docs/ai/WORKFLOW_GUIDE.md`
+- `docs/plan/*`
+- `docs/contracts/*`
+- `docs/review/*`
+- any nested `AGENTS.md` closer to the working directory
 
 ---
 
-## Default working order
+## Repository Summary
+
+- Repository purpose: starter kit for milestone-driven Codex workflows
+- Primary language / stack: Markdown, TOML, GitHub templates, PowerShell-friendly docs
+- Repository type: tooling / infra
+- Main entrypoints:
+  - `docs/ai/PROJECT_CONTEXT.md`
+  - `docs/ai/WORKFLOW_GUIDE.md`
+
+---
+
+## Default Working Order
 
 Follow this order unless a task explicitly requires otherwise:
 
-1. Read the relevant docs and entry files first
-2. Confirm the scope and affected files
-3. Make the smallest reasonable change
-4. Run the narrowest useful validation first
-5. Update docs/config/tests if behavior changed
-6. Summarize what changed, what was verified, and what remains uncertain
+1. read the relevant docs and entry files first
+2. confirm the scope and affected files
+3. make the smallest reasonable change
+4. run the narrowest useful validation first
+5. update docs/config/tests if behavior changed
+6. summarize what changed, what was verified, and what remains uncertain
 
 For multi-file, architecture-affecting, or ambiguous tasks:
+
 - plan first
 - then implement
 - then review
 
 ---
 
-## What this repository expects from agents
+## Repository Expectations
 
 Always try to:
+
 - preserve existing structure unless a task explicitly allows refactoring
 - prefer small, reviewable diffs
 - reuse existing patterns before introducing new abstractions
@@ -42,55 +59,81 @@ Always try to:
 - report uncertainty instead of silently guessing
 
 Do not:
+
 - rewrite large areas without clear justification
 - introduce unrelated cleanup into feature work
 - silently change public behavior, contracts, or file layout
 - assume missing project facts are true
 
----
+## Response and Execution Preferences
 
-## Always allowed
-
-Agents may usually do the following without asking first:
-
-- read source files, configs, tests, and docs
-- inspect repository structure
-- implement scoped changes requested by the current task
-- run local, non-destructive validation commands
-- update nearby documentation to match behavior changes
-- add or update tests directly related to the change
+- Default replies should be in Chinese unless the user explicitly asks for another language.
+- Large-compute tasks should be migrated to the Linux server rather than run locally in this workspace.
+- Before executing commands that materially advance the task, write them into `docs/run_order.md`.
 
 ---
 
-## Ask first
+## Rule Layer
 
-Ask before doing any of the following:
+The repository must be treated as a rule-driven workflow, not a loose document bundle.
 
-- adding new dependencies
-- changing project structure significantly
-- modifying CI, deployment, infra, or secrets-related files
-- changing public APIs, schemas, or stable interfaces
-- deleting files
-- running expensive full-project workflows when narrow validation is available
-- changing data formats, model outputs, or evaluation semantics
-- editing lockfiles when the task did not require it
+Mandatory source-of-truth order:
+
+1. `docs/ai/PROJECT_CONTEXT.md`
+2. `docs/plan/plan_stage.template.md`
+3. `docs/plan/issue_stage.template.md`
+4. `docs/contracts/*`
+5. `docs/review/*`
+6. `templates/*`
+7. `.github/*`
+
+Mandatory decomposition rule:
+
+- milestone spec first
+- issue plan draft second
+- issue body third
+- implementation after approval
+
+Mandatory naming rule:
+
+- keep `milestone_id`, `issue_id`, `issue_type`, `module`, `depends_on`, and `priority` stable across docs
+- do not rename the same concept in different documents
+
+Command logging rule:
+
+- create or update `docs/run_order.md` before running command groups that materially advance the task
+- write a short comment line before each command group
+- include an ISO 8601 timestamp for each command group
+- keep one command per line under the comment so the execution order is easy to audit
 
 ---
 
-## Never do
+## GitHub and Commit Conventions
 
-Never do these without explicit human approval:
+If GitHub credentials are available in the environment, agents may use the repo templates to create or update GitHub issues, milestones, and pull requests.
 
-- commit directly to protected branches
-- push or merge without being asked
-- modify secrets, credentials, or private keys
-- fabricate benchmark, experiment, or validation results
-- claim something was verified if it was not actually run
-- hide risk, uncertainty, or failed checks
+Use these files as the source of truth:
+
+- `docs/plan/plan_stage.template.md` for milestone planning
+- `docs/plan/issue_stage.template.md` for issue plan drafts and issue bodies
+- `docs/handoff/milestone_closeout.template.md` for milestone closeout
+- `templates/PR_TEMPLATE.md` for PR descriptions
+- `templates/issue_report_template.md` for issue execution reports
+- `templates/milestone_review_report.template.md` for milestone review reports
+- `docs/contracts/commit_message_format.md` for commit messages
+
+Commit messages for substantive work should follow the repository contract:
+
+- one short subject line
+- a `why:` body explaining the rationale
+- a `what:` body explaining the concrete changes
+- use a stable scope such as stage, module, or milestone in the subject
+
+If GitHub auth is missing or unavailable, stop and report that the remote action cannot be completed rather than pretending it was created.
 
 ---
 
-## Preferred validation strategy
+## Preferred Validation Strategy
 
 Prefer the smallest meaningful validation first:
 
@@ -100,15 +143,17 @@ Prefer the smallest meaningful validation first:
 4. full test suite only when needed
 
 If a requested change affects:
+
 - public behavior
 - config semantics
 - data flow
 - training / inference / evaluation outputs
+
 then validation scope must expand accordingly.
 
 ---
 
-## Done definition
+## Done Definition
 
 A task is not complete unless all of the following are true:
 
@@ -124,7 +169,7 @@ A task is not complete unless all of the following are true:
 
 ---
 
-## Documentation sync rules
+## Documentation Sync Rules
 
 When behavior changes, consider whether these must be updated:
 
@@ -139,7 +184,7 @@ Do not assume code-only changes are sufficient.
 
 ---
 
-## Reporting format
+## Reporting Format
 
 When finishing a task, report in this structure:
 
@@ -168,6 +213,7 @@ Instead:
 ## If the repository grows more complex
 
 Move specialized rules out of this file and into:
+
 - nested `AGENTS.md`
 - `docs/review/code_review.md`
 - `docs/contracts/*`
