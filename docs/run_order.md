@@ -38,3 +38,9 @@ git log -1 --oneline
 git add docs/run_order.md
 git commit -m "docs(run_order | audit): record GitHub sync ledger" -m "why:" -m "- keep the execution ledger aligned with the repository rule that command groups must be recorded before material task steps." -m "what:" -m "- add the GitHub sync and verification entries to docs/run_order.md so the audit trail is preserved in the repo history." 
 git push
+# [2026-04-03T00:30:00+08:00] push audit log commit
+git push
+# [2026-04-03T00:35:00+08:00] final commit and push for run_order log
+git add docs/run_order.md
+git commit -m "docs(run_order | audit): record GitHub push log" -m "why:" -m "- keep the command execution ledger committed so the repository mirrors the same audit trail that was used during the GitHub sync." -m "what:" -m "- add the final sync entries to docs/run_order.md and publish them with the branch history." 
+git push
