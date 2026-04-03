@@ -29,3 +29,12 @@ git diff --stat
 # [2026-04-03T00:10:00+08:00] stage and commit rule-layer sync
 git add -A
 git commit -m "docs(workflow | rule-layer): sync milestone compilation templates" -m "why:" -m "- make the starter kit deterministic for milestone-to-issue derivation and keep the repository-level rules aligned across AGENTS, workflow, and templates." -m "what:" -m "- add the project context rule layer, milestone spec template, issue plan draft template, command log, and synchronized GitHub/report templates." 
+# [2026-04-03T00:15:00+08:00] push sync branch to origin
+git push -u origin codex/github-sync-rule-layer
+# [2026-04-03T00:20:00+08:00] verify clean working tree after push
+git status --short
+git log -1 --oneline
+# [2026-04-03T00:25:00+08:00] commit run_order audit entry
+git add docs/run_order.md
+git commit -m "docs(run_order | audit): record GitHub sync ledger" -m "why:" -m "- keep the execution ledger aligned with the repository rule that command groups must be recorded before material task steps." -m "what:" -m "- add the GitHub sync and verification entries to docs/run_order.md so the audit trail is preserved in the repo history." 
+git push
